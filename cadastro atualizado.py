@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 from datetime import datetime
 
+from cadastro2 import excluir_contato
+from fghj import atualizar_contato, limpar_campos, localizar_contato
+
 def atualizar_treeview():
     # Limpar treeview
     for item in tree.get_children():
@@ -46,6 +49,12 @@ def adicionar_contato():
     messagebox.showinfo("Sucesso", "Contato adicionado com sucesso!")
 #    limpar_campos()
     atualizar_treeview()
+def limpar_campos():
+    nome_entry.delete(0, tk.END)
+    data_entry.delete(0, tk.END)
+    whatsapp_entry.delete(0, tk.END)
+    linkedin_entry.delete(0, tk.END)
+    github_entry.delete(0, tk.END)
 
 #Configuração inicial
 root = tk.Tk()
@@ -89,11 +98,12 @@ github_entry.grid(row=4, column=1, padx=5, pady=5)
 button_frame = tk.Frame(main_frame)
 button_frame.pack(fill=tk.X, pady=(0, 10))
 
-tk.Button(button_frame, text="Adicionar", command=adicionar_contato).pack(side=tk.LEFT, padx=5)
-tk.Button(button_frame, text="Atualizar", command=None).pack(side=tk.LEFT, padx=5)
-tk.Button(button_frame, text="Excluir", command=None).pack(side=tk.LEFT, padx=5)
-tk.Button(button_frame, text="Limpar", command=None).pack(side=tk.LEFT, padx=5)
-tk.Button(button_frame, text="Localizar", command=None).pack(side=tk.LEFT, padx=5)
+tk.Button(button_frame, text="Adicionar", width=15, command=adicionar_contato).grid(row=0, column=0, padx=5)
+tk.Button(button_frame, text="Atualizar", width=15, command=atualizar_contato).grid(row=0, column=1, padx=5)
+tk.Button(button_frame, text="Excluir", width=15, command=excluir_contato).grid(row=0, column=2, padx=5)
+tk.Button(button_frame, text="Limpar", width=15, command=limpar_campos).grid(row=0, column=3, padx=5)
+tk.Button(button_frame, text="Localizar", width=15, command=localizar_contato).grid(row=0, column=4, padx=5)
+
 
 # Treeview para exibir os contatos
 tree = ttk.Treeview(main_frame, columns=("ID", "Nome", "Nascimento", "WhatsApp", "LinkedIn", "GitHub"), show="headings")
